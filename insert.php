@@ -10,6 +10,7 @@
  */
 
 //1. POSTデータ取得
+$user_id = $_POST['user_id'];
 $book_name = $_POST['book_name'];
 $book_url = $_POST['book_url'];
 $book_comment = $_POST['book_comment'];
@@ -27,9 +28,9 @@ try {
 // 1. SQL文を用意
 $stmt = $pdo->prepare("
     INSERT INTO
-        gs_bm_table(unique_id, book_name, book_url, book_comment, reg_datetime)
+        gs_bm_table(unique_id, user_id, book_name, book_url, book_comment, reg_datetime)
     VALUES (
-        NULL, :book_name, :book_url, :book_comment, sysdate()
+        NULL, :user_id, :book_name, :book_url, :book_comment, sysdate()
         )");
 
 //  2. バインド変数を用意
@@ -37,9 +38,10 @@ $stmt = $pdo->prepare("
 // String文字列の場合 PDO::PARAM_STR
 // セキュリティ上の処理
 
+$stmt->bindValue(':user_id', $user_id, PDO::PARAM_STR);
 $stmt->bindValue(':book_name', $book_name, PDO::PARAM_STR);
 $stmt->bindValue(':book_url', $book_url, PDO::PARAM_STR);
-$stmt->bindValue(':book_comment', $cbook_comment, PDO::PARAM_STR);
+$stmt->bindValue(':book_comment', $book_comment, PDO::PARAM_STR);
 
 //  3. 実行
 // 失敗するとfalse、成功するとtrueが出てくる

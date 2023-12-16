@@ -32,7 +32,7 @@ if ($status==false) {
   //  while文　〜の間、⚪︎⚪︎する
   while( $result = $stmt->fetch(PDO::FETCH_ASSOC)){
     $view .= "<p>";
-    $view .= h($result['reg_datetime'], ENT_QUOTES) . h($result['book_name'], ENT_QUOTES) . h($result['book_comment'], ENT_QUOTES);
+    $view .= h($result['reg_datetime'], ENT_QUOTES) . h($result['user_id'], ENT_QUOTES). h($result['book_name'], ENT_QUOTES) . h($result['book_comment'], ENT_QUOTES);
     // dbの中身のxxs対策に、htmlspecialcharsを使う
     $view .= "</p>";
   }
